@@ -1,12 +1,12 @@
 # MIDIntrinsics Dataset
 
-Repo for the intrinsic component extension of MIT Multi-Illumination Dataset proposed in the paper "Intrinsic Image Decomposition via Ordinal Shading", [Chris Careaga](https://ccareaga.github.io/) and [Yağız Aksoy](https://yaksoy.github.io) , ACM Transactions on Graphics, 2023 
+Repo for the intrinsic component extension of MIT Multi-Illumination Dataset proposed in the paper "Intrinsic Image Decomposition via Ordinal Shading", [Chris Careaga](https://ccareaga.github.io/) and [Yağız Aksoy](https://yaksoy.github.io), ACM Transactions on Graphics, 2023 
 ### [Project Page](https://yaksoy.github.io/intrinsic) | [Paper]() | [Video]() | [Supplementary]() | [Data]()
 
 ![examples](https://github.com/compphoto/MIDIntrinsics/assets/3434597/9682d854-2c75-42c8-a970-afaa85ab49a7)
 
 ### Downloading the data
-In order to compute intrinsic components for each image in MID, you must first download [the original dataset](https://projects.csail.mit.edu/illumination/). We provide the linear albedo images created from the HDR images in the dataset after white-balancing and tonemapping. You can use `wget` to download the zip archives:
+To compute intrinsic components for each image in MID, you must first download [the original dataset](https://projects.csail.mit.edu/illumination/). We provide the linear albedo images created from the HDR images in the dataset after white-balancing and tonemapping. You can use `wget` to download the zip archives:
 
 ```
 wget https://data.csail.mit.edu/multilum/multi_illumination_test_mip2_exr.zip
@@ -18,7 +18,7 @@ We provide a single albedo image for each scene, these can be downloaded [here](
 wget 
 ```
 
-The albedo images follow the same directory structure as the original dataset, and can be unzipped into the proper directories. Since the albedo is computed from the tonemapped images, the shading images should be computed using the tonemapped images as well. We use the simple [tonemapping function](https://github.com/CCareaga/chrislib/blob/667ddf1853683cfcfa21c9fcc435b92b2487e9b1/chrislib/general.py#L437-L479) used by rendered datasets. The shading can be computed as:
+The albedo images follow the same directory structure as the original dataset and can be unzipped into the proper directories. Since the albedo is computed from the tonemapped images, the shading images should be computed using the tonemapped images as well. We use the simple [tonemapping function](https://github.com/CCareaga/chrislib/blob/667ddf1853683cfcfa21c9fcc435b92b2487e9b1/chrislib/general.py#L437-L479) used by rendered datasets. The shading can be computed as:
 ```
 tm_scale = get_tonemap_scale(img)
 tm_img = (tm_scale * img).clip(0, 1)
@@ -28,11 +28,17 @@ This will generate a three-channel shading image. For training intrinsic decompo
 ```
 new_albedo = tm_img / grey_shading
 ```
-Or you can re-synthetize the input image from the original albedo and the grayscale shading:
+Or you can re-synthesize the input image from the original albedo and the grayscale shading:
 ```
 new_img = albedo * grey_shading
 ```
 This will essentially white-balance the input image and remove/alter any non-grayscale lighting effects captured by the three-channel shading (e.g. shadows, specularity, etc.). It will however ensure that each image shares a single albedo component.
+
+Although it's not recommended, the albedo components can be used with the JPEG images in the Multi-Illumination Dataset. Since the albedo is linear, you must undo the gamma correction on the JPEG images before dividing by the albedo:
+```
+shading = (img ** 2.2) / albedo
+```
+Again, this is not recommended as the JPEG images may have artifacts and lost information that can be amplified when performing operations like division resulting in an inaccurate shading layer. 
 
 ### Generating the data
 
@@ -42,9 +48,20 @@ pip install https://github.com/compphoto/Intrinsic/archive/master.zip
 ```
 To generate the albedo estimations, you can run the `generate_albedo` script and point it to the downloaded multi-illumination data:
 ```
-python generate_albedo.py <MULTI_ILLUM_PATH>
+$ python generate_albedo.py --help
+
+usage: generate_albedo.py [-h] [--mid_path MID_PATH] [--weights_path WEIGHTS_PATH] [--save_imgs] [--png]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --mid_path MID_PATH   path to the Multi-Illumination Dataset (train or test)
+  --weights_path WEIGHTS_PATH
+                        path to the Multi-Illumination Dataset (train or test)
+  --save_imgs           whether or not to save preprocessed images as PNG
+  --png                 whether or not to save output as PNGs by default the albedo is saved as EXR
+
 ```
-The images will be white-balanced using the light probe, tonemapped, decomposed using our method and the median albedo will be computed. Each albedo will be stored along side the HDR images. 
+The images will be white-balanced using the light probe, tonemapped, and decomposed using our method and the median albedo will be computed. Each albedo will be stored alongside the HDR images. 
 
 ### Citation
 This implementation is provided for academic use only. Please cite our paper if you use this code or dataset:
