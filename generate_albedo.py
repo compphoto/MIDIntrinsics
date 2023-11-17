@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--mid_path", type=str, help="path to the Multi-Illumination Dataset (train or test)")
-    parser.add_argument("--weights_path", type=str, default='./weights', help="path to the Multi-Illumination Dataset (train or test)")
+    parser.add_argument("--weights_path", type=str, default='./weights', help="path to the model weights for the intrinsic pipeline")
     parser.add_argument("--save_imgs", action="store_true", help="whether or not to save preprocessed images as PNG")
     parser.add_argument("--png", action="store_true", help="whether or not to save output as PNGs by default the albedo is saved as EXR")
     args = parser.parse_args()
@@ -122,6 +122,7 @@ if __name__ == '__main__':
             args.mid_path, 
             scene_name, 
             models, 
-            save_imgs=args.save_imgs
+            save_imgs=args.save_imgs,
+            png=args.png
         )
         print(f'({i + 1} / {num_scenes}) - processed {scene_name}')
