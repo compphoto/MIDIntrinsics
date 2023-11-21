@@ -107,10 +107,7 @@ if __name__ == '__main__':
     SKIP_LIST = [2, 3, 20, 21, 24]
     
     # load model weights (only trained on rendered datasets) 
-    models = load_models(
-        ord_path = f'{args.weights_path}/radiant_pond_314_400.pt',
-        iid_path = f'{args.weights_path}/deft_snowflake_134_200.pt'
-    )
+    models = load_models('rendered_only')
     
     scenes = os.listdir(args.mid_path)
     num_scenes = len(scenes)
