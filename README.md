@@ -3,7 +3,7 @@
 Repo for the intrinsic component extension of MIT Multi-Illumination Dataset proposed in the paper "Intrinsic Image Decomposition via Ordinal Shading", [Chris Careaga](https://ccareaga.github.io/) and [Yağız Aksoy](https://yaksoy.github.io), ACM Transactions on Graphics, 2023 
 ### [Project Page](https://yaksoy.github.io/MIDIntrinsics/) | [Paper](https://yaksoy.github.io/papers/TOG23-Intrinsic.pdf) | [Video](https://youtu.be/pWtJd3hqL3c) | [Supplementary](https://yaksoy.github.io/papers/TOG23-Intrinsic-Supp.pdf) | [Data](https://1sfu-my.sharepoint.com/:f:/g/personal/ctc32_sfu_ca/EjZMBeiaFehHiRh0pBCNcDoBLA-e4g5prym4zjIfIiRCUA?e=UFNUsZ)
 
-![examples](https://github.com/compphoto/MIDIntrinsics/assets/3434597/9682d854-2c75-42c8-a970-afaa85ab49a7)
+![examples](multi_illum_examples.png)
 
 ### Downloading the data
 To compute intrinsic components for each image in MID, you must first download [the original dataset](https://projects.csail.mit.edu/illumination/). We provide the linear albedo images created from the HDR images in the dataset after white-balancing and tonemapping. You can use `wget` to download the zip archives:
