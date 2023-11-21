@@ -1,7 +1,7 @@
-# MIDIntrinsics Dataset
+# MIDIntrinsics
 
 Repo for the intrinsic component extension of MIT Multi-Illumination Dataset proposed in the paper "Intrinsic Image Decomposition via Ordinal Shading", [Chris Careaga](https://ccareaga.github.io/) and [Yağız Aksoy](https://yaksoy.github.io), ACM Transactions on Graphics, 2023 
-### [Project Page](https://yaksoy.github.io/intrinsic) | [Paper]() | [Video]() | [Supplementary]() | [Data]()
+### [Project Page](https://yaksoy.github.io/intrinsic) | [Paper]() | [Video]() | [Supplementary]() | [Data](https://1sfu-my.sharepoint.com/:f:/g/personal/ctc32_sfu_ca/EjZMBeiaFehHiRh0pBCNcDoBLA-e4g5prym4zjIfIiRCUA?e=UFNUsZ)
 
 ![examples](https://github.com/compphoto/MIDIntrinsics/assets/3434597/9682d854-2c75-42c8-a970-afaa85ab49a7)
 
@@ -12,13 +12,11 @@ To compute intrinsic components for each image in MID, you must first download [
 wget https://data.csail.mit.edu/multilum/multi_illumination_test_mip2_exr.zip
 wget https://data.csail.mit.edu/multilum/multi_illumination_train_mip2_exr.zip
 ```
-We provide a single albedo image for each scene, these can be downloaded [here]() or fetched via:
-
+We provide a single albedo image for each scene, these can be downloaded [here](https://1sfu-my.sharepoint.com/:f:/g/personal/ctc32_sfu_ca/EjZMBeiaFehHiRh0pBCNcDoBLA-e4g5prym4zjIfIiRCUA?e=UFNUsZ). Once downloaded the zip archive can be placed next to the extracted MID data and the albedo images can be extracted directly into the MID directory:structure:
 ```
-wget 
+unzip midi_test_albedo -d multi_illumination_test_mip2_exr/
 ```
-
-The albedo images follow the same directory structure as the original dataset and can be unzipped into the proper directories. Since the albedo is computed from the tonemapped images, the shading images should be computed using the tonemapped images as well. We use the simple [tonemapping function](https://github.com/CCareaga/chrislib/blob/667ddf1853683cfcfa21c9fcc435b92b2487e9b1/chrislib/general.py#L437-L479) used by rendered datasets. The shading can be computed as:
+Since the albedo is computed from the tonemapped images, the shading images should be computed using the tonemapped images as well. We use the simple [tonemapping function](https://github.com/CCareaga/chrislib/blob/667ddf1853683cfcfa21c9fcc435b92b2487e9b1/chrislib/general.py#L437-L479) used by rendered datasets. The shading can be computed as:
 ```
 tm_scale = get_tonemap_scale(img)
 tm_img = (tm_scale * img).clip(0, 1)
@@ -62,6 +60,9 @@ optional arguments:
 
 ```
 The images will be white-balanced using the light probe, tonemapped, and decomposed using our method and the median albedo will be computed. Each albedo will be stored alongside the HDR images. 
+
+### License
+<p xmlns:cc="http://creativecommons.org/ns#" >The provided albedo images are licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
 
 ### Citation
 This implementation is provided for academic use only. Please cite our paper if you use this code or dataset:
