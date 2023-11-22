@@ -63,6 +63,10 @@ The images will be white-balanced using the light probe, tonemapped, and decompo
 
 ### License
 <p xmlns:cc="http://creativecommons.org/ns#" >The provided albedo images are licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
+and intended for research purposes only. You can freely use it for scientific publications and include them in figures.
+
+The methodology employed to generate this dataset is safeguarded under intellectual property protection. For inquiries regarding licensing opportunities, kindly reach out to SFU Technology Licensing Office <tlo_dir ατ sfu δøτ ca> and Yağız Aksoy <yagiz ατ sfu δøτ ca>.
+
 
 ### Citation
 This implementation is provided for academic use only. Please cite our paper if you use this code or dataset:
