@@ -12,9 +12,10 @@ To compute intrinsic components for each image in MID, you must first download [
 wget https://data.csail.mit.edu/multilum/multi_illumination_test_mip2_exr.zip
 wget https://data.csail.mit.edu/multilum/multi_illumination_train_mip2_exr.zip
 ```
-We provide a single albedo image for each scene, these can be downloaded [here](https://1sfu-my.sharepoint.com/:f:/g/personal/ctc32_sfu_ca/EjZMBeiaFehHiRh0pBCNcDoBLA-e4g5prym4zjIfIiRCUA?e=UFNUsZ). Once downloaded the zip archive can be placed next to the extracted MID data and the albedo images can be extracted directly into the MID directory:structure:
+We provide a single albedo image for each scene, these can be downloaded [here](https://1sfu-my.sharepoint.com/:f:/g/personal/ctc32_sfu_ca/EjZMBeiaFehHiRh0pBCNcDoBLA-e4g5prym4zjIfIiRCUA?e=UFNUsZ). Once downloaded the zip archive can be placed next to the extracted MID data and the albedo images can be extracted directly into the MID directory structure:
 ```
-unzip midi_test_albedo -d multi_illumination_test_mip2_exr/
+unzip midi_train_albedo.zip -d multi_illumination_train_mip2_exr/
+unzip midi_test_albedo.zip -d multi_illumination_test_mip2_exr/
 ```
 Since the albedo is computed from the tonemapped images, the shading images should be computed using the tonemapped images as well. We use the simple [tonemapping function](https://github.com/CCareaga/chrislib/blob/667ddf1853683cfcfa21c9fcc435b92b2487e9b1/chrislib/general.py#L437-L479) used by rendered datasets. The shading can be computed as:
 ```
