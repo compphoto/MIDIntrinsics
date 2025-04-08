@@ -15,8 +15,8 @@ from chrislib.general import (
 )
 from chrislib.data_util import np_to_pil
 
-from intrinsic.pipeline import run_pipeline
-from intrinsic.model_util import load_models
+from intrinsic.pipeline import load_models, run_gray_pipeline
+
 
 # this is set so that opencv can load exr files
 os.environ["OPENCV_IO_ENABLE_OPENEXR"] = "1"
@@ -64,7 +64,7 @@ def process_scene(root_dir, scene_name, models, tonemap=True, save_imgs=False, p
             continue
         
         # run our pipeline, image already linear, and keep size the same
-        result = run_pipeline(
+        result = run_gray_pipeline(
             models,
             tm_img.astype(np.float32),
             resize_conf=0.0,
@@ -72,7 +72,7 @@ def process_scene(root_dir, scene_name, models, tonemap=True, save_imgs=False, p
             maintain_size=True
         )
         
-        alb = result['albedo']
+        alb = result['gry_alb']
         
         albedos.append(alb)
     
@@ -81,7 +81,7 @@ def process_scene(root_dir, scene_name, models, tonemap=True, save_imgs=False, p
         matched.append(match_scale(alb, albedos[0]))
         
     med_alb = np.median(matched, axis=0)
-    
+
     # if we are saving as png min-max norm to ensure the albedo is between [0-1]
     if png:
         np_to_pil(med_alb / med_alb.max()).save(f'{root_dir}/{scene_name}/albedo.png')
